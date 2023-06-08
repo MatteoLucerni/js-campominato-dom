@@ -63,6 +63,7 @@ buttonPlay.addEventListener('click', function(){
     grid.innerHTML = '';
     let score = 0;
     scoreTarget.innerText = score;
+    alertMess.classList.add('d-none');
 
     // parametri per la griglia
     let rows = 10;
