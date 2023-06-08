@@ -5,6 +5,7 @@ const buttonPlay = document.getElementById('button-play');
 const grid = document.getElementById('grid');
 const difficulty = document.getElementById('difficulty');
 const scoreTarget = document.getElementById('score-box');
+
 const maxBombs = 16;
 
 // Creo la cella
@@ -20,17 +21,18 @@ const getRandomNumber = (min, max) => Math.floor(Math.random() * (max + 1 - min)
 
 // Creo termina partita
 
-// const endGame = (hasHitBomb, numberBombs, score) => {
-//     const allCells = grid.querySelectorAll('.cell')
-//     for(let i = 0; i < numberBombs; i++){
-//         cell = allCells[i];
-//         cell.classList.add('bomb');
-//     }
-//     const message = hasHitBomb ? 'You lost!' : 'You won!';
+const endGame = (hasHitBomb, bombs, score) => {
+    const allCells = grid.querySelectorAll('.cell');
+    for(let i = 0; i < bombs.length; i++){
+        const cellInnerNumber = parseInt(allCells[i].innerText);
+        if(bombs.includes(cellInnerNumber)){
+            allCells[i].classList.add('bomb');
+        }
+    }
+    const message = hasHitBomb ? 'You lost!' : 'You won!';
 
-//     console.log(message + ' Score: ' + score);
-//     return;
-// };
+    console.log(message + ' Score: ' + score);
+};
 
 // Genero le bombe
 
@@ -54,7 +56,7 @@ buttonPlay.addEventListener('click', function(){
     // reset della griglia e score
     grid.innerHTML = '';
     let score = 0;
-    scoreTarget.innerText = 'Score: ' + score;
+    scoreTarget.innerText = score;
 
     // parametri per la griglia
     let rows = 10;
@@ -79,7 +81,7 @@ buttonPlay.addEventListener('click', function(){
     console.log(bombs);
 
     // calcolo lo score massimo
-    const maxScore = cellsNumber - bombs;
+    const maxScore = cellsNumber - maxBombs;
     console.log('Score to win: ' + maxScore);
 
     // creo il ciclo
@@ -87,14 +89,6 @@ buttonPlay.addEventListener('click', function(){
         const cell = createCell();
         const cellIndex = i + 1;
         cell.innerText = cellIndex;
-
-        //aggiungo un event listener ad ogni cella
-        cell.addEventListener('click', function(){
-            cell.classList.add('clicked');
-
-            // verifica per bloccare il console log se la cella è attiva
-            if(cell.className.includes('clicked')) console.log('Cell number: ' + cellIndex);
-        });
 
         // ridimensiono la griglia
         if(mode === 2){
@@ -104,6 +98,24 @@ buttonPlay.addEventListener('click', function(){
         }
 
         grid.appendChild(cell);
+
+        //aggiungo un event listener ad ogni cella
+        cell.addEventListener('click', function(){
+            if(bombs.includes(cellIndex)){
+                endGame(true, bombs, score);
+            } else {
+                if(score === maxScore){
+                    endGame(false, bombs, score);
+                } else {
+                    cell.classList.add('clicked');
+                    score++
+                    scoreTarget.innerText = score;
+                }
+            }
+
+            // verifica per bloccare il console log se la cella è attiva
+            if(cell.className.includes('clicked')) console.log('Cell number: ' + cellIndex);
+        });
     }
 
     // mostro la griglia nel DOM

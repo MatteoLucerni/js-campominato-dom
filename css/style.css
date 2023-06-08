@@ -39,7 +39,7 @@ body{
 }
 
 .cell.bomb{
-    background-color: red;
+    background-color: red!important;
 }
 
 /* animations */
