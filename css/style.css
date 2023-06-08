@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(255, 47, 64);
+    background-color: rgb(177, 36, 177);
 }
 
 /* grid */
@@ -36,6 +36,10 @@ body{
 .cell.hw-7{
     height: calc(100% / 7);
     width: calc(100% / 7);
+}
+
+.cell.bomb{
+    background-color: red;
 }
 
 /* animations */

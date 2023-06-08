@@ -12,7 +12,25 @@ const createCell = () => {
     return cell;
 };
 
-// comparsa della griglia e ridimensionamento difficoltàà
+// Genero un numero casuale da min a max inclusi
+
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max + 1 - min)) + min;
+
+// Creo termina partita
+
+const endGame = (hasHitBomb, numberBombs, score) => {
+    const allCells = grid.querySelectorAll('.cell')
+    for(let i = 0; i < numberBombs; i++){
+        cell = allCells[i];
+        cell.classList.add('bomb');
+    }
+    const message = hasHitBomb ? 'You lost!' : 'You won!';
+
+    console.log(message + ' Score: ' + score);
+    return;
+};
+
+// comparsa della griglia e ridimensionamento difficoltà
 
 buttonPlay.addEventListener('click', function(){
     // reset della griglia

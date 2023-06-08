@@ -5,7 +5,6 @@
         - **FINO A CHE** non raggiungo il numero di bombe massimo:
             - Prendo una cella che contiene la bomba
             - la coloro di rosso
-    - salvo lo score attuale
     - **SE** l'utente ha colpito una bomba:
         - 'Hai perso'
     - **ALTRIMENTI**:
