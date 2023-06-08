@@ -33,7 +33,7 @@ body{
 }
 
 .cell{
-    border: 2px solid white;
+    border: 1px solid white;
     color: white;
     height: calc(100% / 10);
     width: calc(100% / 10);
