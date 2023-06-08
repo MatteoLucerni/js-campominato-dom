@@ -44,7 +44,7 @@ buttonPlay.addEventListener('click', function(){
 
         //aggiungo un event listener ad ogni cella
         cell.addEventListener('click', function(){
-            cell.classList.toggle('clicked');
+            cell.classList.add('clicked');
 
             // verifica per bloccare il console log se la cella è attiva
             if(cell.className.includes('clicked')) console.log('Cell number: ' + cellIndex);

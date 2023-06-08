@@ -25,6 +25,7 @@ body{
 
 .cell.clicked{
     background-color: blue;
+    cursor: not-allowed;
 }
 
 .cell.hw-9{
