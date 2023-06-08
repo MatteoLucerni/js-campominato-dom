@@ -18,10 +18,11 @@
 - Genero numeri casuali tutti diversi fino ad un numero massimo e li metto nella lista bombe:
     - creo una lista che conterrà i miei numeri
     - **FIN QUANDO** non raggiungo il numero massimo di numeri:
-        - **UNA VOLTA** genero un numero casuale
-        - **FIN QUANDO** il numero generato è presente nella lista di numeri:
-            - genero un numero casuale
-        - inserisco il numero generato nella lista bombe
+        - Genero un numero a caso
+        - **SE** il numero è presente nella lista:
+            - ne genero un altro
+        - **ALTRIMENTI**:
+            - inserisco il numero nella lista
     - stampo in console la lista di numeri completa
 - Controllo se l'utente ha preso una cella con la bomba:
     - Al click sulla cella:
