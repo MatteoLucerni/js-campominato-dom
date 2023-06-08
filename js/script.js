@@ -5,6 +5,9 @@ const buttonPlay = document.getElementById('button-play');
 const grid = document.getElementById('grid');
 const difficulty = document.getElementById('difficulty');
 const scoreTarget = document.getElementById('score-box');
+const alertMess = document.getElementById('alert-mess');
+const resultTarget = document.getElementById('result');
+const finalScoreTarget = document.getElementById('final-score');
 
 const maxBombs = 16;
 let isEnd = false;
@@ -32,6 +35,10 @@ const endGame = (hasHitBomb, maxNumber, score) => {
     const message = hasHitBomb ? 'You lost!' : 'You won!';
 
     console.log(message + ' Score: ' + score);
+    resultTarget.innerText = message;
+    finalScoreTarget.innerText = 'Your score: ' + score;
+    alertMess.classList.remove('d-none');
+    
     isEnd = true;
 };
 
@@ -120,6 +127,6 @@ buttonPlay.addEventListener('click', function(){
         });
     }
 
-    // mostro la griglia nel DOM
+    // mostro gli elementi nel DOM
     grid.classList.remove('d-none');
 });

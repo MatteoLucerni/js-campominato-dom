@@ -2,13 +2,34 @@ body{
     background-color: rgb(177, 36, 177);
 }
 
+.container{
+    position: relative;
+}
+
 /* grid */
 
 #grid{
     height: 700px;
     width: 700px;
-    animation: fallDown .2s linear;
+    animation: scaleUP .2s linear;
     user-select: none;
+}
+
+#alert-mess{
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    height: 200px;
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: scaleUPandBack .6s linear;
+}
+
+#alert-mess > *{
+    font-weight: 800;
+    font-size: 40px;
 }
 
 .cell{
@@ -44,12 +65,26 @@ body{
 
 /* animations */
 
-@keyframes fallDown {
+@keyframes scaleUP {
     0%{
         transform: scale(0);
     }
 
     100%{
         transform: scale(1);
+    }
+}
+
+@keyframes scaleUPandBack {
+    0%{
+        transform: translate(-50%, -50%) scale(0);
+    }
+
+    50%{
+        transform: translate(-50%, -50%) scale(1.5);
+    }
+
+    100%{
+        transform: translate(-50%, -50%) scale(1);
     }
 }
