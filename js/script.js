@@ -108,9 +108,9 @@ buttonPlay.addEventListener('click', function(){
             } else {
                 if(score === maxScore){
                     endGame(false, cellsNumber, score);
-                } else {
+                } else if(!cell.classList.contains('clicked')){
                     cell.classList.add('clicked');
-                    score++
+                    score++;
                     scoreTarget.innerText = score;
                 }
             }
