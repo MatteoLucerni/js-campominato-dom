@@ -7,6 +7,7 @@ const difficulty = document.getElementById('difficulty');
 const scoreTarget = document.getElementById('score-box');
 
 const maxBombs = 16;
+let isEnd = false;
 
 // Creo la cella
 const createCell = () => {
@@ -21,39 +22,37 @@ const getRandomNumber = (min, max) => Math.floor(Math.random() * (max + 1 - min)
 
 // Creo termina partita
 
-const endGame = (hasHitBomb, bombs, score) => {
+const endGame = (hasHitBomb, maxNumber, score) => {
     const allCells = grid.querySelectorAll('.cell');
-    for(let i = 0; i < bombs.length; i++){
-        const cellInnerNumber = parseInt(allCells[i].innerText);
-        if(bombs.includes(cellInnerNumber)){
+    for(let i = 0; i < maxNumber; i++){
+        if(allCells[i].classList.contains('isBomb')){
             allCells[i].classList.add('bomb');
         }
     }
     const message = hasHitBomb ? 'You lost!' : 'You won!';
 
     console.log(message + ' Score: ' + score);
+    isEnd = true;
 };
 
 // Genero le bombe
 
-const createBombs = maxBombs => {
+const createBombs = maxNumber => {
     const bombs = [];
     while (bombs.length < maxBombs){
-        let randomNumber = getRandomNumber(1, maxBombs);
+        let randomNumber = getRandomNumber(1, maxNumber);
         if(bombs.includes(randomNumber)){
-            randomNumber = getRandomNumber(1, maxBombs);
+            randomNumber = getRandomNumber(1, maxNumber);
         } else{
             bombs.push(randomNumber);
-            console.log('while');
         }
     }
     return bombs;
 }
 
-// comparsa della griglia e ridimensionamento difficoltà
-
 buttonPlay.addEventListener('click', function(){
-    // reset della griglia e score
+    // reset griglia, score e isEnd
+    isEnd = false;
     grid.innerHTML = '';
     let score = 0;
     scoreTarget.innerText = score;
@@ -76,19 +75,21 @@ buttonPlay.addEventListener('click', function(){
     console.log('Max cells: ' + cellsNumber);
     console.log(rows + 'x' + cols);
 
-    // genero la lista di bombe
-    const bombs = createBombs(maxBombs);
-    console.log(bombs);
-
     // calcolo lo score massimo
     const maxScore = cellsNumber - maxBombs;
     console.log('Score to win: ' + maxScore);
+
+    // genero la lista di bombe
+    const bombs = createBombs(cellsNumber);
+    console.log(bombs);
 
     // creo il ciclo
     for(let i = 0; i < cellsNumber; i++){
         const cell = createCell();
         const cellIndex = i + 1;
         cell.innerText = cellIndex;
+
+        if(bombs.includes(cellIndex)) cell.classList.add('isBomb');
 
         // ridimensiono la griglia
         if(mode === 2){
@@ -101,11 +102,12 @@ buttonPlay.addEventListener('click', function(){
 
         //aggiungo un event listener ad ogni cella
         cell.addEventListener('click', function(){
+            if(isEnd) return;
             if(bombs.includes(cellIndex)){
-                endGame(true, bombs, score);
+                endGame(true, cellsNumber, score);
             } else {
                 if(score === maxScore){
-                    endGame(false, bombs, score);
+                    endGame(false, cellsNumber, score);
                 } else {
                     cell.classList.add('clicked');
                     score++
